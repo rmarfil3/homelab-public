@@ -55,7 +55,7 @@ If you later add a new bot, do `@Supervisor restart`.
 
 There is an existing Dockerfile that you can use to containerize the app.
 
-Run `nx docker-build sidekicks` to build the container. Default tag is `sidekicks`. 
+Run `nx docker-build sidekicks` to build a docker image. Default tag is `sidekicks`. 
 
 See `apps/sidekicks/project.json` file and look for `docker-*` targets for more information.
 
