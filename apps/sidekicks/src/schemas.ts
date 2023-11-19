@@ -1,6 +1,6 @@
 import { Models } from 'node-appwrite';
 
-export enum Collection {
+export enum DatabaseCollection {
   Threads = 'Threads',
   Assistants = 'Assistants',
 }

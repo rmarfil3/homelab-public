@@ -7,6 +7,7 @@ import {
 } from '@homelab/utils';
 import {
   Client,
+  Events,
   GatewayIntentBits,
   Message,
   TextBasedChannel,
@@ -21,7 +22,7 @@ import {
   DATABASE,
 } from './constants';
 import { RunStatus } from './enums';
-import { Collection, Thread } from './schemas';
+import { DatabaseCollection, Thread } from './schemas';
 
 class Sidekick {
   private name: string;
@@ -55,8 +56,11 @@ class Sidekick {
 
   async start() {
     await this.client.login(this.discordToken);
-    this.client.on('ready', this.onReady.bind(this));
-    this.client.on('messageCreate', this.onMessageCreate.bind(this));
+    this.client.on(Events.ClientReady, this.onReady.bind(this));
+    this.client.on(
+      Events.MessageCreate,
+      this.onMessageCreate.bind(this),
+    );
   }
 
   private log(level: keyof typeof logger, message: unknown) {
@@ -174,7 +178,7 @@ class Sidekick {
   async getThread(discordThreadId: string) {
     const threadResult = await this.databases.listDocuments<Thread>(
       DATABASE,
-      Collection.Threads,
+      DatabaseCollection.Threads,
       [Query.equal('discordThreadId', discordThreadId)],
     );
 
@@ -186,7 +190,7 @@ class Sidekick {
 
     return this.databases.createDocument<Thread>(
       DATABASE,
-      Collection.Threads,
+      DatabaseCollection.Threads,
       ID.unique(),
       {
         discordThreadId: channel.id,
