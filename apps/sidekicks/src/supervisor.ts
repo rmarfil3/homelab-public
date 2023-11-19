@@ -219,7 +219,8 @@ class Supervisor {
         break;
 
       case SupervisorCommand.RESTART:
-        await this.refreshSidekicks(interaction);
+        await this.refreshSidekicks();
+        await interaction.reply('Sidekicks have been refreshed.');
         break;
 
       case SupervisorCommand.ADD_SIDEKICK:
@@ -233,7 +234,7 @@ class Supervisor {
     }
   }
 
-  async refreshSidekicks(interaction: ChatInputCommandInteraction) {
+  async refreshSidekicks() {
     this.logger.info('Restarting sidekicks...');
 
     await Promise.all(
@@ -241,8 +242,6 @@ class Supervisor {
     );
 
     await this.initializeSidekicks();
-
-    await interaction.reply('Sidekicks have been refreshed.');
   }
 
   async addSidekick(interaction: ChatInputCommandInteraction) {
@@ -261,7 +260,7 @@ class Supervisor {
 
     await interaction.reply(`Sidekick **${assistant.name}** added.`);
 
-    await this.initializeSidekicks();
+    await this.refreshSidekicks();
   }
 }
 

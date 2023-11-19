@@ -266,7 +266,7 @@ class Sidekick {
   }
 
   async logout() {
-    await this.client.destroy();
+    return this.client.destroy();
   }
 }
 
