@@ -1,4 +1,4 @@
-# Homelab: OpenAI Assistant on Discord
+# OpenAI Assistant on Discord
 
 This repository contains an application that allows you to add OpenAI Assistants to your Discord server. The application uses Appwrite as the database for tracking the threads and assistants.
 
