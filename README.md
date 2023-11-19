@@ -41,7 +41,8 @@ The project is structured as a monorepo using [Nx](https://nx.dev/), which helps
     }
     ```
 5. Go to your Appwrite server and add the details of your bots to the `Assistants` collection.
-6. Run the app `npm serve sidekicks`.
+6. Configure `.env`. Refer to the `.env.sample` file.
+7. Run the app `npm serve sidekicks`.
 
 ## Usage
 
