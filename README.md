@@ -15,6 +15,7 @@ The project is structured as a monorepo using [Nx](https://nx.dev/), which helps
 
 ## Tech Stack
 
+- [Node.js](https://nodejs.org/en/)
 - [Nx](https://nx.dev/) for monorepo management.
 - [Appwrite](https://appwrite.io/) for database management.
 - [OpenAI](https://openai.com/) for AI Assistants.
