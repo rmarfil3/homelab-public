@@ -1,0 +1,128 @@
+{
+    "projectId": "6558887f683c449001b8",
+    "projectName": "Sidekicks",
+    "databases": [
+        {
+            "$id": "DiscordBots",
+            "name": "Discord Bots",
+            "$createdAt": "2023-11-18T09:51:39.582+00:00",
+            "$updatedAt": "2023-11-18T09:51:39.582+00:00",
+            "enabled": true
+        }
+    ],
+    "collections": [
+        {
+            "$id": "Assistants",
+            "$permissions": [],
+            "databaseId": "DiscordBots",
+            "name": "Assistants",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "assistantId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "discordToken",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "Threads",
+            "$permissions": [],
+            "databaseId": "DiscordBots",
+            "name": "Threads",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "discordThreadId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "openAIThreadId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                },
+                {
+                    "key": "assistantId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "SystemConfig",
+            "$permissions": [],
+            "databaseId": "DiscordBots",
+            "name": "System Configuration",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "config_name",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null
+                },
+                {
+                    "key": "config_value",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 1000,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        }
+    ]
+}
