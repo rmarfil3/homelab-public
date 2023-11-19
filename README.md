@@ -74,3 +74,8 @@ services:
       - APPWRITE_API_KEY=
       - TZ=Asia/Manila
 ```
+
+## Screenshots
+
+![image](https://github.com/rmarfil3/openai-discord/assets/12169248/28d998a5-a61d-4e86-bb31-2a203d46bfc3)
+
