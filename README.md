@@ -1,4 +1,4 @@
-# OpenAI Assistant on Discord
+# OpenAI Assistants on Discord
 
 This repository contains an application that allows you to add OpenAI Assistants to your Discord server. The application uses Appwrite as the database for tracking the threads and assistants.
 
@@ -12,10 +12,12 @@ The project is structured as a monorepo using [Nx](https://nx.dev/), which helps
 
 - Add OpenAI Assistants to your Discord server.
 - Conversations are done in Discord threads. Only one OpenAI assistant can be added in the thread.
+- Slash commands to manage the bots.
 
 ## Tech Stack
 
 - [Node.js](https://nodejs.org/en/)
+- [Typescript](https://www.typescriptlang.org/)
 - [Nx](https://nx.dev/) for monorepo management.
 - [Appwrite](https://appwrite.io/) for database management.
 - [OpenAI](https://openai.com/) for AI Assistants.
@@ -25,8 +27,8 @@ The project is structured as a monorepo using [Nx](https://nx.dev/), which helps
 
 - You need to separately setup Appwrite and put the credentials in the `.env` file.
 - You must have an OpenAI account and must provide your own API Key in the `.env` file.
-- One OpenAI Assistant is also one Discord bot.
-- You must create a Supervisor bot which you will use for managing the AI bots. (At the moment, the only function is to refresh/restart the bots.)
+- One OpenAI Assistant is also one Discord bot. See [OpenAI Assistants](https://platform.openai.com/assistants) to create OpenAI Assistants, and [Discord Developer Portal](https://discord.com/developers/) for creating Discord bots. 
+- You must create a Supervisor bot which you will use for managing the AI bots. See [Discord Developer Portal](https://discord.com/developers/) for creating Discord bots.
 
 ## Setup
 
@@ -50,7 +52,13 @@ After setting up the application, you can now go to your Discord server and star
 
 To start a conversation, just mention the OpenAI assistant in any channel the bots have access to.
 
-If you later add a new bot, do `@Supervisor restart`.
+Supervisor slash commands are available:
+
+- `restart` for reloading the bots
+
+- `add-sidekick` for adding new bot
+
+- *...more to come soon!*
 
 ## Build and deploy
 
@@ -79,4 +87,3 @@ services:
 ## Screenshots
 
 ![image](https://github.com/rmarfil3/openai-discord/assets/12169248/28d998a5-a61d-4e86-bb31-2a203d46bfc3)
-
