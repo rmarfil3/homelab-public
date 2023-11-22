@@ -15,3 +15,8 @@ export enum SupervisorCommand {
   RESTART = 'restart',
   ADD_SIDEKICK = 'add-sidekick',
 }
+
+export enum PlatformEvent {
+  READY = 'ready',
+  MESSAGE = 'message',
+}
