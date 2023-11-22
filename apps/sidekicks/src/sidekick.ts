@@ -7,7 +7,7 @@ import { Logger } from 'winston';
 
 import { DATABASE } from './constants';
 import { PlatformEvent, RunStatus } from './enums';
-import { PlatformInterface } from './interfaces';
+import { PlatformSidekickInterface } from './interfaces';
 import { DatabaseCollection, Thread } from './schemas';
 import { UserMessage } from './types';
 
@@ -17,19 +17,21 @@ class Sidekick {
   private databases: Databases;
   private openAI: OpenAI;
   private logger: Logger;
-  private platform: PlatformInterface;
+  private platform: PlatformSidekickInterface;
 
   constructor(
     name: string,
     assistantId: string,
-    platform: PlatformInterface,
+    platform: PlatformSidekickInterface,
   ) {
     this.name = name;
     this.assistantId = assistantId;
     this.platform = platform;
     this.databases = new Databases(AppwriteSingleton.getInstance());
     this.openAI = OpenAIService.getInstance();
-    this.logger = createLogger(this.name);
+    this.logger = createLogger(
+      `${this.name} via ${this.platform.platform}`,
+    );
 
     this.platform.on(PlatformEvent.READY, this.onReady.bind(this));
     this.platform.on(

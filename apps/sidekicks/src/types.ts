@@ -1,3 +1,5 @@
+import { SupervisorCommandCode } from './enums';
+
 export type User = {
   displayName?: string;
   id?: string;
@@ -10,4 +12,14 @@ export type UserMessage<OriginalPlatformMessage = unknown> = {
   originalPlatformMessage: OriginalPlatformMessage;
   platformThreadId: string;
   user: User;
+};
+
+export type SupervisorCommand<
+  OriginalPlatformCommand = unknown,
+  CommandData = Record<string, string>,
+> = {
+  commandCode: SupervisorCommandCode;
+  originalPlatformCommand: OriginalPlatformCommand;
+  user: User;
+  data?: CommandData;
 };

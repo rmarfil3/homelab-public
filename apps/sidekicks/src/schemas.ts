@@ -5,10 +5,16 @@ export enum DatabaseCollection {
   Assistants = 'Assistants',
 }
 
+export enum Platform {
+  DISCORD = 'discord',
+  TELEGRAM = 'telegram',
+}
+
 export type Assistant = {
   name: string;
   assistantId: string;
   discordToken: string;
+  platform: Platform;
 } & Models.Document;
 
 export type Thread = {

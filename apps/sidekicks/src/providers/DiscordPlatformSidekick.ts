@@ -11,15 +11,18 @@ import { Logger } from 'winston';
 
 import { AUTO_THREAD_ARCHIVE_IN_MINUTES } from '../constants';
 import { PlatformEvent } from '../enums';
-import { PlatformInterface } from '../interfaces';
+import { PlatformSidekickInterface } from '../interfaces';
+import { Platform } from '../schemas';
 import { UserMessage } from '../types';
 
-class DiscordPlatform
+class DiscordPlatformSidekick
   extends EventEmitter
-  implements PlatformInterface
+  implements PlatformSidekickInterface
 {
-  private name: string;
-  private assistantId: string;
+  public readonly platform = Platform.DISCORD;
+
+  private readonly name: string;
+  private readonly assistantId: string;
   private readonly discordBotToken: string;
   private client: Client;
   private logger: Logger;
@@ -33,7 +36,7 @@ class DiscordPlatform
     this.name = name;
     this.assistantId = assistantId;
     this.discordBotToken = discordBotToken;
-    this.logger = createLogger(`${this.name} via Discord`);
+    this.logger = createLogger(`${this.name} via ${this.platform}`);
 
     this.client = new Client({
       intents: [
@@ -77,12 +80,19 @@ class DiscordPlatform
       const threadStarterMessage =
         await message.channel.fetchStarterMessage();
       if (!this.isForMe(threadStarterMessage)) {
-        this.logger.info(
-          'Existing thread but not for me. Ignoring...',
-        );
+        // Existing thread but not for me. Ignoring...
         return;
       }
     }
+
+    this.logger.info(
+      `(${message.author.displayName}) ${message.content.substring(
+        0,
+        100,
+      )}...`,
+    );
+
+    this.logger.info('Responding to thread...');
 
     const userMessage: UserMessage<Message> = {
       platformThreadId,
@@ -127,10 +137,20 @@ class DiscordPlatform
   }
 
   async sendTyping(userMessage: UserMessage<Message>) {
+    if (userMessage.originalPlatformMessage.thread) {
+      userMessage.originalPlatformMessage.thread.sendTyping();
+      return;
+    }
+
     userMessage.originalPlatformMessage.channel.sendTyping();
   }
 
   async reply(userMessage: UserMessage<Message>, reply: string) {
+    if (userMessage.originalPlatformMessage.thread) {
+      await userMessage.originalPlatformMessage.thread.send(reply);
+      return;
+    }
+
     await userMessage.originalPlatformMessage.reply(reply);
   }
 
@@ -139,4 +159,4 @@ class DiscordPlatform
   }
 }
 
-export default DiscordPlatform;
+export default DiscordPlatformSidekick;
