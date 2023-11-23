@@ -7,6 +7,7 @@ export enum RunStatus {
 
 export enum SystemConfigCollectionKey {
   SUPERVISOR_DISCORD_TOKEN = 'supervisor_discord_token',
+  SUPERVISOR_TELEGRAM_TOKEN = 'supervisor_telegram_token',
   DISCORD_SLASH_COMMANDS_LOADED = 'discord_slash_commands_loaded',
 }
 

@@ -7,6 +7,7 @@ import { DATABASE } from './constants';
 import { PlatformEvent, SupervisorCommandCode } from './enums';
 import { PlatformSupervisorInterface } from './interfaces';
 import DiscordPlatformSidekick from './providers/DiscordPlatformSidekick';
+import TelegramPlatformSidekick from './providers/TelegramPlatformSidekick';
 import { Assistant, DatabaseCollection, Platform } from './schemas';
 import Sidekick from './sidekick';
 import { SupervisorCommand } from './types';
@@ -54,7 +55,7 @@ class Supervisor {
         const platform = new (this.getPlatformSidekickClass())(
           assistant.name,
           assistant.assistantId,
-          assistant.discordToken,
+          assistant.discordToken, // TODO: Rename to platformToken
         );
 
         const sidekick = new Sidekick(
@@ -80,7 +81,7 @@ class Supervisor {
     if (this.platform.platform === Platform.DISCORD) {
       return DiscordPlatformSidekick;
     } else if (this.platform.platform === Platform.TELEGRAM) {
-      return null;
+      return TelegramPlatformSidekick;
     }
   }
 
