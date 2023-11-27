@@ -152,11 +152,15 @@ class TelegramPlatformSidekick
     userMessage: UserMessage<SidekickContext>,
     reply: string,
   ) {
-    await userMessage.originalPlatformMessage.reply(reply);
+    await userMessage.originalPlatformMessage.reply(reply, {
+      parse_mode: 'MarkdownV2',
+    });
   }
 
   async reset(context: SidekickContext) {
-    context.session.sessionId = uuidv4();
+    if (context.session) {
+      context.session.sessionId = uuidv4();
+    }
 
     this.logger.info('Session ID has been reset.');
     await context.reply('Session has been reset.');
