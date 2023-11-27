@@ -153,7 +153,7 @@ class TelegramPlatformSidekick
     reply: string,
   ) {
     await userMessage.originalPlatformMessage.reply(reply, {
-      parse_mode: 'MarkdownV2',
+      parse_mode: 'Markdown',
     });
   }
 
