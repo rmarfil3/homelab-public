@@ -138,7 +138,10 @@ class Sidekick {
             return;
           }
 
-          await sleep(1000);
+          await sleep(
+            +process.env.OPENAI_THREAD_POLLING_IN_MS || 1000,
+          );
+
           await this.platform.sendTyping(message);
         }
       })();
