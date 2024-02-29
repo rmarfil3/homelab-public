@@ -1,0 +1,15 @@
+# fly.toml app configuration file generated for roneru-sidekicks-muddy-lake-7591 on 2023-12-15T16:10:10+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "roneru-sidekicks"
+primary_region = "sin"
+
+[build]
+  image = "registry.fly.io/roneru-sidekicks"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256

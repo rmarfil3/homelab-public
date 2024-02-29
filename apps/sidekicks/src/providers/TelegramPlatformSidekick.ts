@@ -1,7 +1,7 @@
 import EventEmitter from 'node:events';
 
 import { AppwriteSingleton } from '@homelab/services';
-import { createLogger } from '@homelab/utils';
+import { createLogger, sanitizeMarkdown } from '@homelab/utils';
 import { Databases, Query } from 'node-appwrite';
 import { Context, Telegraf, session } from 'telegraf';
 import { message as messageFilter } from 'telegraf/filters';
@@ -137,8 +137,11 @@ class TelegramPlatformSidekick
   }
 
   async getPlatformThreadId(context: SidekickContext) {
-    context.session ??= { sessionId: uuidv4() };
+    if ((context.message.chat as any).is_forum) {
+      return context.message.chat.id.toString();
+    }
 
+    context.session ??= { sessionId: uuidv4() };
     return context.session.sessionId;
   }
 
@@ -152,9 +155,23 @@ class TelegramPlatformSidekick
     userMessage: UserMessage<SidekickContext>,
     reply: string,
   ) {
-    await userMessage.originalPlatformMessage.reply(reply, {
-      parse_mode: 'Markdown',
-    });
+    const sanitizedReply = sanitizeMarkdown(reply);
+
+    try {
+      await userMessage.originalPlatformMessage.reply(
+        sanitizedReply,
+        {
+          parse_mode: 'MarkdownV2',
+        },
+      );
+    } catch (error) {
+      await userMessage.originalPlatformMessage.reply(
+        sanitizedReply,
+        {
+          parse_mode: 'HTML',
+        },
+      );
+    }
   }
 
   async reset(context: SidekickContext) {
